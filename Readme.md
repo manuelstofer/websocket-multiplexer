@@ -2,8 +2,7 @@
 
 Websocket multiplexer, emulates virtual channels over web socket or SockJS.
 
-There is a (similar library)[https://github.com/sockjs/websocket-multiplex] from
-the SockJS. But this implementation is different in some ways:
+Its different to the [SockJS multiplexer](https://github.com/sockjs/websocket-multiplex) in some ways:
 
 - Client / Server agnostic.
 - Anonymous channels.
@@ -57,13 +56,12 @@ multiplexer.addEventListener('channel', function (evt) {
 });
 ```
 
-There are also some examples for node.js + (ws)[https://github.com/einaros/ws] in examples/ws
+There are also some examples for node.js + [ws](https://github.com/einaros/ws) in examples/ws
 
 
 ### Multiplexer
 
 ```webidl
-
 interface Multiplexer {
   attribute Function onchannel;
 
@@ -76,7 +74,6 @@ WebSocket implements EventTarget;
 ### Channel
 
 ```webidl
-
 interface Channel {
   // networking
   attribute String name;
@@ -86,5 +83,4 @@ interface Channel {
   void close();
 };
 WebSocket implements EventTarget;
-
 ```
