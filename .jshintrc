@@ -1,0 +1,36 @@
+{
+    "curly": true,
+    "latedef": "nofunc",
+    "eqnull": true,
+    "eqeqeq": true,
+    "undef": true,
+    "strict": true,
+    "node" : true,
+    "browser" : true,
+    "globalstrict": true,
+    "trailing": true,
+    "newcap": false,
+    "nonew": true,
+    "validthis": true,
+    "globals": {
+        "jQuery": true,
+        "Braintree": true,
+        "require": true,
+        "module": true,
+        "alert": true,
+        "FB": true,
+
+        "describe": true,
+        "it": true,
+        "before": true,
+        "beforeEach": true,
+        "after": true,
+        "afterEach": true,
+        "with_valid_user": true,
+        "with_expired_user": true,
+        "with_nonexistant_user": true,
+        "without_user": true,
+        "it_should": true,
+        "XMLHttpRequest": true
+    }
+}
