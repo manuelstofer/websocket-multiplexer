@@ -42,7 +42,18 @@ example.addEventListener('close', function (evt) {
 });
 ```
 
-Anonymous channels:
+
+Create anonymous channels:
+
+```Javascript
+var multiplexer = new Multiplexer({ socket: websocket }),
+    channel = multiplexer.channel();
+
+channel.send('hello');
+```
+
+
+Listen for anonymous channels:
 
 ```Javascript
 var multiplexer = new Multiplexer({ socket: websocket });
@@ -75,7 +86,6 @@ Multiplexer implements EventTarget;
 
 ```webidl
 interface Channel {
-  // networking
   attribute String name;
   attribute Function onmessage;
   attribute Function onclose;
