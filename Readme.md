@@ -21,7 +21,7 @@ npm install websocket-multiplexer
 ```
 
 ```Javascript
-var Multiplexer = require('multiplexer');
+var Multiplexer = require('websocket-multiplexer');
 ```
 
 
