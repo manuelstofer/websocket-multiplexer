@@ -68,7 +68,7 @@ interface Multiplexer {
   // create a channel
   void channel(optional String channel_id);
 };
-WebSocket implements EventTarget;
+Multiplexer implements EventTarget;
 ```
 
 ### Channel
@@ -82,5 +82,5 @@ interface Channel {
   void send(in DOMString data);
   void close();
 };
-WebSocket implements EventTarget;
+Channel implements EventTarget;
 ```
