@@ -39,7 +39,6 @@ Multiplexer.prototype.channel = function (name) {
             close:  this.close.bind(this, channel_id)
         });
     this.channels[channel_id] = channel;
-    this.dispatchEvent({ type: 'channel', channel: channel });
     return channel;
 };
 
@@ -91,6 +90,7 @@ Multiplexer.prototype.process = function (evt) {
 
     if (!channel) {
         channel = this.channel(packet.channel_id);
+        this.dispatchEvent({ type: 'channel', channel: channel });
     }
     channel.dispatchEvent({ type: 'message', data: packet.data });
 };
