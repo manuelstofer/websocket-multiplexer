@@ -2,7 +2,7 @@
   "name": "websocket-multiplexer",
   "repo": "manuelstofer/websocket-multiplexer",
   "description": "Multiple virtual channels over a web socket / SockJS connection",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "keywords": [],
   "dependencies": {},
   "development": {},
