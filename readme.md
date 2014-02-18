@@ -78,6 +78,7 @@ interface Multiplexer {
 
   // create a channel
   void channel(optional String channel_id);
+  void close();
 };
 Multiplexer implements EventTarget;
 ```

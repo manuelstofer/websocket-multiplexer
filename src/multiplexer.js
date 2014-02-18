@@ -20,6 +20,7 @@ function Multiplexer (options) {
     this.channels    = {};
 
     this.socket.addEventListener('message', this.process.bind(this));
+    this.socket.addEventListener('close', this.close.bind(this));
 }
 
 util.mixin(Multiplexer.prototype, EventTarget);
@@ -36,7 +37,7 @@ Multiplexer.prototype.channel = function (name) {
         channel = new Channel({
             name:   channel_id,
             send:   this.send.bind(this, channel_id),
-            close:  this.close.bind(this, channel_id)
+            close:  this.closeChannel.bind(this, channel_id)
         });
     this.channels[channel_id] = channel;
     return channel;
@@ -61,14 +62,26 @@ Multiplexer.prototype.send = function (channel_id, data) {
  *
  * @param channel_id
  */
-Multiplexer.prototype.close = function (channel_id) {
-    var packet = {
-        channel_id: channel_id,
-        close:      true
-    };
-    this.socket.send(this.serialize(packet));
+Multiplexer.prototype.closeChannel = function (channel_id) {
+    if (this.socket.readyState === this.socket.OPEN) {
+        var packet = {
+            channel_id: channel_id,
+            close:      true
+        };
+        this.socket.send(this.serialize(packet));
+    }
+
     this.channels[channel_id].dispatchEvent({ type: 'close' });
     delete this.channels[channel_id];
+};
+
+/**
+ * Close all channels
+ */
+Multiplexer.prototype.close = function () {
+    for (var channel_id in this.channels) {
+        this.closeChannel(channel_id);
+    }
 };
 
 /**
