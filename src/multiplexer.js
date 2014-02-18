@@ -71,8 +71,10 @@ Multiplexer.prototype.closeChannel = function (channel_id) {
         this.socket.send(this.serialize(packet));
     }
 
-    this.channels[channel_id].dispatchEvent({ type: 'close' });
-    delete this.channels[channel_id];
+    if (this.channels[channel_id]) {
+        this.channels[channel_id].dispatchEvent({ type: 'close' });
+        delete this.channels[channel_id];
+    }
 };
 
 /**
