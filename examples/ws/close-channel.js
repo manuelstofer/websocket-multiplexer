@@ -13,7 +13,7 @@ ws.addEventListener('open', function () {
     var client = new Multiplexer({ socket: ws }),
         channel = client.channel();
 
-    channel.send({ hello: 'echo' });
+    channel.send({ hello: 'echo' }); []
     ws.close();
 });
 
