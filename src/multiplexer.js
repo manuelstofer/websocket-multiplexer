@@ -92,8 +92,12 @@ Multiplexer.prototype.close = function () {
  * @param evt
  */
 Multiplexer.prototype.process = function (evt) {
-    var packet  = this.unserialize(evt.data),
-        channel = this.channels[packet.channel_id];
+    var packet  = this.unserialize(evt.data);
+
+    if (typeof packet === 'undefined' ||
+        typeof packet.channel_id === 'undefined') { return; }
+
+    var channel = this.channels[packet.channel_id];
 
     if (packet.close) {
         if (this.channels[packet.channel_id]) {
