@@ -1,6 +1,6 @@
 {
   "name": "websocket-multiplexer",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Multiple virtual channels over a web socket / SockJS connection",
   "main": "src/multiplexer.js",
   "repository": "",
