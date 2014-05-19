@@ -37,7 +37,7 @@ Multiplexer.prototype.channel = function (name) {
         channel = new Channel({
             name:   channel_id,
             send:   this.send.bind(this, channel_id),
-            close:  this.closeChannel.bind(this, channel_id)
+            close:  this.closeChannel.bind(this, channel_id, true)
         });
     this.channels[channel_id] = channel;
     return channel;
@@ -61,9 +61,10 @@ Multiplexer.prototype.send = function (channel_id, data) {
  * Close a channel
  *
  * @param channel_id
+ * @param send_close
  */
-Multiplexer.prototype.closeChannel = function (channel_id) {
-    if (this.socket.readyState === this.socket.OPEN) {
+Multiplexer.prototype.closeChannel = function (channel_id, send_close) {
+    if (send_close && this.socket.readyState === this.socket.OPEN) {
         var packet = {
             channel_id: channel_id,
             close:      true
@@ -72,8 +73,9 @@ Multiplexer.prototype.closeChannel = function (channel_id) {
     }
 
     if (this.channels[channel_id]) {
-        this.channels[channel_id].dispatchEvent({ type: 'close' });
+        var channel = this.channels[channel_id];
         delete this.channels[channel_id];
+        channel.dispatchEvent({ type: 'close' });
     }
 };
 
@@ -100,8 +102,9 @@ Multiplexer.prototype.process = function (evt) {
     var channel = this.channels[packet.channel_id];
 
     if (packet.close) {
-        if (this.channels[packet.channel_id]) {
-            this.channels[packet.channel_id].dispatchEvent({ type: 'close' });
+        this.closeChannel(packet.channel_id, false);
+        if (channel) {
+            channel.dispatchEvent({ type: 'close' });
             delete this.channels[packet.channel_id];
         }
         return;
